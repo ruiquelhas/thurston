@@ -1,0 +1,43 @@
+{
+  "name": "thurston",
+  "version": "0.0.1",
+  "description": "Route-level file signature validation for hapi stream payloads",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "lab -a code -t 100 -L",
+    "test-tap": "lab -a code -r tap -o tests.tap",
+    "test-cov-html": "lab -a code -r html -o coverage.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruiquelhas/thurston.git"
+  },
+  "keywords": [
+    "file",
+    "hapi",
+    "joi",
+    "magik",
+    "validation"
+  ],
+  "author": "Rui Quelhas <rfpquelhas@gmail.com>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/ruiquelhas/thurston/issues"
+  },
+  "homepage": "https://github.com/ruiquelhas/thurston#readme",
+  "devDependencies": {
+    "code": "2.x.x",
+    "form-data": "0.x.x",
+    "hapi": "11.x.x",
+    "lab": "7.x.x",
+    "stream-to-promise": "1.x.x"
+  },
+  "dependencies": {
+    "houdin": "1.x.x",
+    "items": "2.x.x",
+    "lodash.some": "3.x.x"
+  },
+  "engines": {
+    "node": ">= 4.0.0"
+  }
+}
