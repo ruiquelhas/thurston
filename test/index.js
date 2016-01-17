@@ -1,17 +1,18 @@
 'use strict';
 
-const fs = require('fs');
-const os = require('os');
-const path = require('path');
+const Fs = require('fs');
+const Os = require('os');
+const Path = require('path');
 
 const Code = require('code');
 const FormData = require('form-data');
 const Hapi = require('hapi');
 const Lab = require('lab');
-const streamToPromise = require('stream-to-promise');
+const StreamToPromise = require('stream-to-promise');
+
+const Thurston = require('../lib');
 
 const lab = exports.lab = Lab.script();
-const Thurston = require('../lib');
 
 lab.experiment('Thurston', () => {
 
@@ -53,7 +54,7 @@ lab.experiment('Thurston', () => {
         const form = new FormData();
         form.append('foo', 'bar');
 
-        streamToPromise(form).then((payload) => {
+        StreamToPromise(form).then((payload) => {
 
             server.inject({ headers: form.getHeaders(), method: 'POST', payload: payload, url: '/' }, (response) => {
 
@@ -65,15 +66,15 @@ lab.experiment('Thurston', () => {
 
     lab.test('should return error if the file type validation fails', (done) => {
 
-        const invalid = path.join(os.tmpdir(), 'invalid');
+        const invalid = Path.join(Os.tmpdir(), 'invalid');
 
-        fs.createWriteStream(invalid).end(new Buffer([0x00]));
+        Fs.createWriteStream(invalid).end(new Buffer([0x00]));
 
         const form = new FormData();
-        form.append('file', fs.createReadStream(invalid));
+        form.append('file', Fs.createReadStream(invalid));
         form.append('foo', 'bar');
 
-        streamToPromise(form).then((payload) => {
+        StreamToPromise(form).then((payload) => {
 
             server.inject({ headers: form.getHeaders(), method: 'POST', payload: payload, url: '/' }, (response) => {
 
@@ -90,16 +91,16 @@ lab.experiment('Thurston', () => {
 
     lab.test('should return control to the server if all files the payload are allowed', (done) => {
 
-        const png = path.join(os.tmpdir(), 'foo.png');
+        const png = Path.join(Os.tmpdir(), 'foo.png');
 
-        fs.createWriteStream(png).end(new Buffer([0x89, 0x50]));
+        Fs.createWriteStream(png).end(new Buffer([0x89, 0x50]));
 
         const form = new FormData();
-        form.append('file1', fs.createReadStream(png));
-        form.append('file2', fs.createReadStream(png));
+        form.append('file1', Fs.createReadStream(png));
+        form.append('file2', Fs.createReadStream(png));
         form.append('foo', 'bar');
 
-        streamToPromise(form).then((payload) => {
+        StreamToPromise(form).then((payload) => {
 
             server.inject({ headers: form.getHeaders(), method: 'POST', payload: payload, url: '/' }, (response) => {
 
