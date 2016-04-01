@@ -25,7 +25,7 @@ lab.experiment('Thurston', () => {
             routes: {
                 validate: {
                     options: {
-                        whitelist: ['png']
+                        whitelist: ['image/png']
                     }
                 }
             }
@@ -49,26 +49,11 @@ lab.experiment('Thurston', () => {
         done();
     });
 
-    lab.test('should return control to the server if the payload does not contain any file', (done) => {
-
-        const form = new FormData();
-        form.append('foo', 'bar');
-
-        StreamToPromise(form).then((payload) => {
-
-            server.inject({ headers: form.getHeaders(), method: 'POST', payload: payload, url: '/' }, (response) => {
-
-                Code.expect(response.statusCode).to.equal(200);
-                done();
-            });
-        });
-    });
-
     lab.test('should return error if the file type validation fails', (done) => {
 
         const invalid = Path.join(Os.tmpdir(), 'invalid');
 
-        Fs.createWriteStream(invalid).end(new Buffer([0x00]));
+        Fs.createWriteStream(invalid).end(new Buffer('ffffffff', 'hex'));
 
         const form = new FormData();
         form.append('file', Fs.createReadStream(invalid));
@@ -80,7 +65,7 @@ lab.experiment('Thurston', () => {
 
                 Code.expect(response.statusCode).to.equal(400);
                 Code.expect(response.result).to.include(['message', 'validation']);
-                Code.expect(response.result.message).to.equal('child \"file\" fails because [\"file\" could not be validated]');
+                Code.expect(response.result.message).to.equal('child \"file\" fails because [\"file\" type is unknown]');
                 Code.expect(response.result.validation).to.include(['source', 'keys']);
                 Code.expect(response.result.validation.source).to.equal('payload');
                 Code.expect(response.result.validation.keys).to.include('file');
@@ -93,7 +78,7 @@ lab.experiment('Thurston', () => {
 
         const png = Path.join(Os.tmpdir(), 'foo.png');
 
-        Fs.createWriteStream(png).end(new Buffer([0x89, 0x50]));
+        Fs.createWriteStream(png).end(new Buffer('89504e47', 'hex'));
 
         const form = new FormData();
         form.append('file1', Fs.createReadStream(png));
