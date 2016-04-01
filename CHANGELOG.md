@@ -1,5 +1,12 @@
 # Changelog
 
+## [v2.0.1](https://github.com/ruiquelhas/thurston/tree/v2.0.1) (2016-04-01)
+[Full Changelog](https://github.com/ruiquelhas/thurston/compare/v2.0.0...v2.0.1)
+
+**Merged pull requests:**
+
+- Fix documentation TOC spacing [\#10](https://github.com/ruiquelhas/thurston/pull/10) ([ruiquelhas](https://github.com/ruiquelhas))
+
 ## [v2.0.0](https://github.com/ruiquelhas/thurston/tree/v2.0.0) (2016-04-01)
 [Full Changelog](https://github.com/ruiquelhas/thurston/compare/v1.0.2...v2.0.0)
 
