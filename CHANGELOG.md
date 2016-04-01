@@ -1,5 +1,16 @@
 # Changelog
 
+## [v2.0.0](https://github.com/ruiquelhas/thurston/tree/v2.0.0) (2016-04-01)
+[Full Changelog](https://github.com/ruiquelhas/thurston/compare/v1.0.2...v2.0.0)
+
+**Closed issues:**
+
+- Update houdin to version 2.x.x [\#8](https://github.com/ruiquelhas/thurston/issues/8)
+
+**Merged pull requests:**
+
+- Update dependencies [\#9](https://github.com/ruiquelhas/thurston/pull/9) ([ruiquelhas](https://github.com/ruiquelhas))
+
 ## [v1.0.2](https://github.com/ruiquelhas/thurston/tree/v1.0.2) (2016-01-17)
 [Full Changelog](https://github.com/ruiquelhas/thurston/compare/v1.0.1...v1.0.2)
 
