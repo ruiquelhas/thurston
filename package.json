@@ -31,14 +31,13 @@
     "code": "2.x.x",
     "coveralls": "2.x.x",
     "form-data": "0.x.x",
-    "hapi": "12.x.x",
-    "lab": "8.x.x",
+    "hapi": "13.x.x",
+    "lab": "10.x.x",
     "stream-to-promise": "1.x.x"
   },
   "dependencies": {
-    "houdin": "1.x.x",
-    "items": "2.x.x",
-    "lodash.some": "4.x.x"
+    "houdin": "2.x.x",
+    "items": "2.x.x"
   },
   "engines": {
     "node": ">=4.0.0"
