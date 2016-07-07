@@ -1,5 +1,12 @@
 # Changelog
 
+## [v2.0.3](https://github.com/ruiquelhas/thurston/tree/v2.0.3) (2016-07-07)
+[Full Changelog](https://github.com/ruiquelhas/thurston/compare/v2.0.2...v2.0.3)
+
+**Merged pull requests:**
+
+- Simplify test suite [\#12](https://github.com/ruiquelhas/thurston/pull/12) ([ruiquelhas](https://github.com/ruiquelhas))
+
 ## [v2.0.2](https://github.com/ruiquelhas/thurston/tree/v2.0.2) (2016-06-03)
 [Full Changelog](https://github.com/ruiquelhas/thurston/compare/v2.0.1...v2.0.2)
 
