@@ -52,7 +52,7 @@ lab.experiment('Thurston', () => {
 
         const invalid = Path.join(Os.tmpdir(), 'invalid');
 
-        Fs.createWriteStream(invalid).end(new Buffer('ffffffff', 'hex'));
+        Fs.createWriteStream(invalid).end(Buffer.from('ffffffff', 'hex'));
 
         const form = new Form();
         form.append('file', Fs.createReadStream(invalid));
@@ -74,7 +74,7 @@ lab.experiment('Thurston', () => {
 
         const png = Path.join(Os.tmpdir(), 'foo.png');
 
-        Fs.createWriteStream(png).end(new Buffer('89504e47', 'hex'));
+        Fs.createWriteStream(png).end(Buffer.from('89504e47', 'hex'));
 
         const form = new Form();
         form.append('file1', Fs.createReadStream(png));
