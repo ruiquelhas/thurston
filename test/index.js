@@ -52,13 +52,13 @@ lab.experiment('Thurston', () => {
 
         const invalid = Path.join(Os.tmpdir(), 'invalid');
 
-        Fs.createWriteStream(invalid).end(new Buffer('ffffffff', 'hex'));
+        Fs.createWriteStream(invalid).end(Buffer.from('ffffffff', 'hex'));
 
         const form = new Form();
         form.append('file', Fs.createReadStream(invalid));
         form.append('foo', 'bar');
 
-        server.inject({ headers: form.getHeaders(), method: 'POST', payload: form.get(), url: '/' }, (response) => {
+        server.inject({ headers: form.getHeaders(), method: 'POST', payload: form.stream(), url: '/' }, (response) => {
 
             Code.expect(response.statusCode).to.equal(400);
             Code.expect(response.result).to.include(['message', 'validation']);
@@ -74,14 +74,14 @@ lab.experiment('Thurston', () => {
 
         const png = Path.join(Os.tmpdir(), 'foo.png');
 
-        Fs.createWriteStream(png).end(new Buffer('89504e47', 'hex'));
+        Fs.createWriteStream(png).end(Buffer.from('89504e47', 'hex'));
 
         const form = new Form();
         form.append('file1', Fs.createReadStream(png));
         form.append('file2', Fs.createReadStream(png));
         form.append('foo', 'bar');
 
-        server.inject({ headers: form.getHeaders(), method: 'POST', payload: form.get(), url: '/' }, (response) => {
+        server.inject({ headers: form.getHeaders(), method: 'POST', payload: form.stream(), url: '/' }, (response) => {
 
             Code.expect(response.statusCode).to.equal(200);
             done();

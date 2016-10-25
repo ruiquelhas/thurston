@@ -61,7 +61,7 @@ const Thurston = require('thurston');
 
 const options = { whitelist: ['image/png'] };
 
-Fs.createWriteStream('file.png').end(new Buffer('89504e47', 'hex'));
+Fs.createWriteStream('file.png').end(Buffer.from('89504e47', 'hex'));
 const png = Fs.createReadStream('file.png');
 
 Thurston.validate({ file: png }, options, (err, value) => {
@@ -77,7 +77,7 @@ const Thurston = require('thurston');
 
 const options = { whitelist: ['image/png'] };
 
-Fs.createWriteStream('file.gif').end(new Buffer('47494638', 'hex'));
+Fs.createWriteStream('file.gif').end(Buffer.from('47494638', 'hex'));
 const gif = Fs.createReadStream('file.gif');
 
 Thurston.validate({ file: gif }, options, (err, value) => {
