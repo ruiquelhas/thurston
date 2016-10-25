@@ -1,5 +1,12 @@
 # Changelog
 
+## [v2.0.4](https://github.com/ruiquelhas/thurston/tree/v2.0.4) (2016-10-25)
+[Full Changelog](https://github.com/ruiquelhas/thurston/compare/v2.0.3...v2.0.4)
+
+**Merged pull requests:**
+
+- Update dependencies [\#13](https://github.com/ruiquelhas/thurston/pull/13) ([ruiquelhas](https://github.com/ruiquelhas))
+
 ## [v2.0.3](https://github.com/ruiquelhas/thurston/tree/v2.0.3) (2016-07-07)
 [Full Changelog](https://github.com/ruiquelhas/thurston/compare/v2.0.2...v2.0.3)
 
