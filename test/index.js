@@ -16,6 +16,8 @@ const lab = exports.lab = Lab.script();
 lab.experiment('Thurston', () => {
 
     let server;
+    let invalid;
+    let png;
 
     lab.before((done) => {
 
@@ -48,11 +50,19 @@ lab.experiment('Thurston', () => {
         done();
     });
 
+    lab.beforeEach((done) => {
+        // Create invalid format file
+        invalid = Path.join(Os.tmpdir(), 'invalid');
+        Fs.createWriteStream(invalid).on('error', done).end(Buffer.from('ffffffff', 'hex'), done);
+    });
+
+    lab.beforeEach((done) => {
+        // Create fake png file
+        png = Path.join(Os.tmpdir(), 'foo.png');
+        Fs.createWriteStream(png).on('error', done).end(Buffer.from('89504e47', 'hex'), done);
+    });
+
     lab.test('should return error if the file type validation fails', (done) => {
-
-        const invalid = Path.join(Os.tmpdir(), 'invalid');
-
-        Fs.createWriteStream(invalid).end(Buffer.from('ffffffff', 'hex'));
 
         const form = new Form();
         form.append('file', Fs.createReadStream(invalid));
@@ -71,10 +81,6 @@ lab.experiment('Thurston', () => {
     });
 
     lab.test('should return control to the server if all files the payload are allowed', (done) => {
-
-        const png = Path.join(Os.tmpdir(), 'foo.png');
-
-        Fs.createWriteStream(png).end(Buffer.from('89504e47', 'hex'));
 
         const form = new Form();
         form.append('file1', Fs.createReadStream(png));
