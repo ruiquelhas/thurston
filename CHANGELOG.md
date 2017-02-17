@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.0.5](https://github.com/ruiquelhas/thurston/tree/v2.0.5) (2017-02-17)
+[Full Changelog](https://github.com/ruiquelhas/thurston/compare/v2.0.4...v2.0.5)
+
+**Fixed bugs:**
+
+- Flaky tests run without file fixtures available [\#14](https://github.com/ruiquelhas/thurston/issues/14)
+- Fix file fixtures availability [\#15](https://github.com/ruiquelhas/thurston/pull/15) ([ruiquelhas](https://github.com/ruiquelhas))
+
 ## [v2.0.4](https://github.com/ruiquelhas/thurston/tree/v2.0.4) (2016-10-25)
 [Full Changelog](https://github.com/ruiquelhas/thurston/compare/v2.0.3...v2.0.4)
 
