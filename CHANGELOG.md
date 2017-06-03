@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.0.6](https://github.com/ruiquelhas/thurston/tree/v2.0.6) (2017-06-03)
+[Full Changelog](https://github.com/ruiquelhas/thurston/compare/v2.0.5...v2.0.6)
+
+**Fixed bugs:**
+
+- Account for broken payloads before stream-specific validation [\#16](https://github.com/ruiquelhas/thurston/issues/16)
+- Skip validation of broken payloads [\#17](https://github.com/ruiquelhas/thurston/pull/17) ([ruiquelhas](https://github.com/ruiquelhas))
+
 ## [v2.0.5](https://github.com/ruiquelhas/thurston/tree/v2.0.5) (2017-02-17)
 [Full Changelog](https://github.com/ruiquelhas/thurston/compare/v2.0.4...v2.0.5)
 
