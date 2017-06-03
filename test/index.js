@@ -53,13 +53,13 @@ lab.experiment('Thurston', () => {
     lab.beforeEach((done) => {
         // Create invalid format file
         invalid = Path.join(Os.tmpdir(), 'invalid');
-        Fs.createWriteStream(invalid).on('error', done).end(Buffer.from('ffffffff', 'hex'), done);
+        Fs.createWriteStream(invalid).on('error', done).end(Buffer.from('ffffffffffffffff', 'hex'), done);
     });
 
     lab.beforeEach((done) => {
         // Create fake png file
         png = Path.join(Os.tmpdir(), 'foo.png');
-        Fs.createWriteStream(png).on('error', done).end(Buffer.from('89504e47', 'hex'), done);
+        Fs.createWriteStream(png).on('error', done).end(Buffer.from('89504e470d0a1a0a', 'hex'), done);
     });
 
     lab.test('should return error if the file type validation fails', (done) => {
