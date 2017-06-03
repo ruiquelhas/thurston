@@ -32,7 +32,7 @@ lab.experiment('Thurston', () => {
             }
         });
 
-        server.route({
+        server.route([{
             config: {
                 handler: (request, reply) => reply(),
                 payload: {
@@ -44,8 +44,17 @@ lab.experiment('Thurston', () => {
                 }
             },
             method: 'POST',
-            path: '/'
-        });
+            path: '/stream'
+        }, {
+            config: {
+                handler: (request, reply) => reply(),
+                validate: {
+                    payload: Thurston.validate
+                }
+            },
+            method: 'POST',
+            path: '/data'
+        }]);
 
         done();
     });
@@ -68,7 +77,7 @@ lab.experiment('Thurston', () => {
         form.append('file', Fs.createReadStream(invalid));
         form.append('foo', 'bar');
 
-        server.inject({ headers: form.getHeaders(), method: 'POST', payload: form.stream(), url: '/' }, (response) => {
+        server.inject({ headers: form.getHeaders(), method: 'POST', payload: form.stream(), url: '/stream' }, (response) => {
 
             Code.expect(response.statusCode).to.equal(400);
             Code.expect(response.result).to.include(['message', 'validation']);
@@ -87,7 +96,16 @@ lab.experiment('Thurston', () => {
         form.append('file2', Fs.createReadStream(png));
         form.append('foo', 'bar');
 
-        server.inject({ headers: form.getHeaders(), method: 'POST', payload: form.stream(), url: '/' }, (response) => {
+        server.inject({ headers: form.getHeaders(), method: 'POST', payload: form.stream(), url: '/stream' }, (response) => {
+
+            Code.expect(response.statusCode).to.equal(200);
+            done();
+        });
+    });
+
+    lab.test('should return control to the server if the parsed payload is broken', (done) => {
+
+        server.inject({ method: 'POST', payload: undefined, url: '/data' }, (response) => {
 
             Code.expect(response.statusCode).to.equal(200);
             done();
