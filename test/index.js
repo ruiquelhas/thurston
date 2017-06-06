@@ -15,19 +15,29 @@ const lab = exports.lab = Lab.script();
 
 lab.experiment('Thurston', () => {
 
-    let server;
+    let goodServer;
+    let badServer;
     let invalid;
     let png;
 
     lab.before((done) => {
 
-        server = new Hapi.Server();
-        server.connection({
+        goodServer = new Hapi.Server();
+        goodServer.connection({
             routes: {
                 validate: {
                     options: {
                         whitelist: ['image/png']
                     }
+                }
+            }
+        });
+
+        badServer = new Hapi.Server();
+        badServer.connection({
+            routes: {
+                validate: {
+                    options: {}
                 }
             }
         });
@@ -47,7 +57,9 @@ lab.experiment('Thurston', () => {
             path: '/stream'
         };
 
-        server.route([
+        goodServer.route(baseRoute);
+
+        badServer.route([
             baseRoute,
             Object.assign({}, baseRoute, {
                 config: Object.assign({}, baseRoute.config, {
@@ -88,11 +100,28 @@ lab.experiment('Thurston', () => {
         form.append('file', Fs.createReadStream(invalid));
         form.append('foo', 'bar');
 
-        server.inject({ headers: form.getHeaders(), method: 'POST', payload: form.stream(), url: '/stream' }, (response) => {
+        goodServer.inject({ headers: form.getHeaders(), method: 'POST', payload: form.stream(), url: '/stream' }, (response) => {
 
             Code.expect(response.statusCode).to.equal(400);
             Code.expect(response.result).to.include(['message', 'validation']);
             Code.expect(response.result.message).to.equal('child \"file\" fails because [\"file\" type is unknown]');
+            Code.expect(response.result.validation).to.include(['source', 'keys']);
+            Code.expect(response.result.validation.source).to.equal('payload');
+            Code.expect(response.result.validation.keys).to.include('file');
+            done();
+        });
+    });
+
+    lab.test('should return error if no whitelist is specified', (done) => {
+
+        const form = new Form();
+        form.append('file', Fs.createReadStream(png));
+
+        badServer.inject({ headers: form.getHeaders(), method: 'POST', payload: form.stream(), url: '/stream' }, (response) => {
+
+            Code.expect(response.statusCode).to.equal(400);
+            Code.expect(response.result).to.include(['message', 'validation']);
+            Code.expect(response.result.message).to.equal('child \"file\" fails because [\"file\" type is not allowed]');
             Code.expect(response.result.validation).to.include(['source', 'keys']);
             Code.expect(response.result.validation.source).to.equal('payload');
             Code.expect(response.result.validation.keys).to.include('file');
@@ -107,7 +136,7 @@ lab.experiment('Thurston', () => {
         form.append('file2', Fs.createReadStream(png));
         form.append('foo', 'bar');
 
-        server.inject({ headers: form.getHeaders(), method: 'POST', payload: form.stream(), url: '/stream' }, (response) => {
+        goodServer.inject({ headers: form.getHeaders(), method: 'POST', payload: form.stream(), url: '/stream' }, (response) => {
 
             Code.expect(response.statusCode).to.equal(200);
             done();
@@ -116,7 +145,7 @@ lab.experiment('Thurston', () => {
 
     lab.test('should return control to the server if the payload is parsed as a temporary file', (done) => {
 
-        server.inject({ method: 'POST', payload: undefined, url: '/file' }, (response) => {
+        badServer.inject({ method: 'POST', payload: undefined, url: '/file' }, (response) => {
 
             Code.expect(response.statusCode).to.equal(200);
             done();
@@ -125,7 +154,7 @@ lab.experiment('Thurston', () => {
 
     lab.test('should return control to the server if the payload is parsed as a buffer', (done) => {
 
-        server.inject({ method: 'POST', payload: undefined, url: '/data' }, (response) => {
+        badServer.inject({ method: 'POST', payload: undefined, url: '/data' }, (response) => {
 
             Code.expect(response.statusCode).to.equal(200);
             done();
