@@ -1,5 +1,12 @@
 # Changelog
 
+## [v3.0.0](https://github.com/ruiquelhas/thurston/tree/v3.0.0) (2017-06-06)
+[Full Changelog](https://github.com/ruiquelhas/thurston/compare/v2.0.6...v3.0.0)
+
+**Implemented enhancements:**
+
+- Update tests and dependencies [\#18](https://github.com/ruiquelhas/thurston/pull/18) ([ruiquelhas](https://github.com/ruiquelhas))
+
 ## [v2.0.6](https://github.com/ruiquelhas/thurston/tree/v2.0.6) (2017-06-03)
 [Full Changelog](https://github.com/ruiquelhas/thurston/compare/v2.0.5...v2.0.6)
 
