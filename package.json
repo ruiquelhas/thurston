@@ -35,7 +35,7 @@
     "multi-part": "2.x.x"
   },
   "dependencies": {
-    "houdin": "2.x.x",
+    "houdin": "3.x.x",
     "items": "2.x.x"
   },
   "engines": {
