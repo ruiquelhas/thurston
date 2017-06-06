@@ -1,6 +1,6 @@
 {
   "name": "thurston",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Route-level file signature validation for hapi stream payloads",
   "main": "lib/index.js",
   "scripts": {

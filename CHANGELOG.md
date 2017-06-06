@@ -1,5 +1,12 @@
 # Changelog
 
+## [v3.0.1](https://github.com/ruiquelhas/thurston/tree/v3.0.1) (2017-06-06)
+[Full Changelog](https://github.com/ruiquelhas/thurston/compare/v3.0.0...v3.0.1)
+
+**Merged pull requests:**
+
+- Update `hapi` to skip vulnerable versions [\#19](https://github.com/ruiquelhas/thurston/pull/19) ([ruiquelhas](https://github.com/ruiquelhas))
+
 ## [v3.0.0](https://github.com/ruiquelhas/thurston/tree/v3.0.0) (2017-06-06)
 [Full Changelog](https://github.com/ruiquelhas/thurston/compare/v2.0.6...v3.0.0)
 
