@@ -1,7 +1,7 @@
 # thurston
 Route-level file type validation for [hapi](https://github.com/hapijs/hapi) parsed `multipart/form-data` stream request payloads. Also works as a standalone module, and most importantly, works in tandem with [houdin](https://github.com/ruiquelhas/houdin) for a truly magical experience.
 
-[![NPM Version][fury-img]][fury-url] [![Build Status][travis-img]][travis-url] [![Coverage Status][coveralls-img]][coveralls-url] [![Dependencies][david-img]][david-url]
+[![NPM Version][version-img]][version-url] [![Build Status][travis-img]][travis-url] [![Coverage Status][coveralls-img]][coveralls-url] [![Dependencies][david-img]][david-url] [![Dev Dependencies][david-dev-img]][david-dev-url]
 
 ## Table of Contents
 - [Installation](#installation)
@@ -90,11 +90,13 @@ Thurston.validate({ file: gif }, options, (err, value) => {
 ## Supported File Types
 The same as [file-type](https://github.com/sindresorhus/file-type#supported-file-types).
 
-[coveralls-img]: https://coveralls.io/repos/ruiquelhas/thurston/badge.svg
+[coveralls-img]: https://img.shields.io/coveralls/ruiquelhas/thurston.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/github/ruiquelhas/thurston
-[david-img]: https://david-dm.org/ruiquelhas/thurston.svg
+[david-img]: https://img.shields.io/david/ruiquelhas/thurston.svg?style=flat-square
 [david-url]: https://david-dm.org/ruiquelhas/thurston
-[fury-img]: https://badge.fury.io/js/thurston.svg
-[fury-url]: https://badge.fury.io/js/thurston
-[travis-img]: https://travis-ci.org/ruiquelhas/thurston.svg
+[david-dev-img]: https://img.shields.io/david/dev/ruiquelhas/thurston.svg?style=flat-square
+[david-dev-url]: https://david-dm.org/ruiquelhas/thurston?type=dev
+[version-img]: https://img.shields.io/npm/v/thurston.svg?style=flat-square
+[version-url]: https://www.npmjs.com/package/thurston
+[travis-img]: https://img.shields.io/travis/ruiquelhas/thurston.svg?style=flat-square
 [travis-url]: https://travis-ci.org/ruiquelhas/thurston
