@@ -32,7 +32,7 @@ lab.experiment('Thurston', () => {
             }
         });
 
-        server.route([{
+        const baseRoute = {
             config: {
                 handler: (request, reply) => reply(),
                 payload: {
@@ -45,16 +45,27 @@ lab.experiment('Thurston', () => {
             },
             method: 'POST',
             path: '/stream'
-        }, {
-            config: {
-                handler: (request, reply) => reply(),
-                validate: {
-                    payload: Thurston.validate
-                }
-            },
-            method: 'POST',
-            path: '/data'
-        }]);
+        };
+
+        server.route([
+            baseRoute,
+            Object.assign({}, baseRoute, {
+                config: Object.assign({}, baseRoute.config, {
+                    payload: {
+                        output: 'data'
+                    }
+                }),
+                path: '/data'
+            }),
+            Object.assign({}, baseRoute, {
+                config: Object.assign({}, baseRoute.config, {
+                    payload: {
+                        output: 'file'
+                    }
+                }),
+                path: '/file'
+            })
+        ]);
 
         done();
     });
@@ -103,7 +114,16 @@ lab.experiment('Thurston', () => {
         });
     });
 
-    lab.test('should return control to the server if the parsed payload is broken', (done) => {
+    lab.test('should return control to the server if the payload is parsed as a temporary file', (done) => {
+
+        server.inject({ method: 'POST', payload: undefined, url: '/file' }, (response) => {
+
+            Code.expect(response.statusCode).to.equal(200);
+            done();
+        });
+    });
+
+    lab.test('should return control to the server if the payload is parsed as a buffer', (done) => {
 
         server.inject({ method: 'POST', payload: undefined, url: '/data' }, (response) => {
 
