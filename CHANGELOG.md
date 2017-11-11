@@ -1,5 +1,16 @@
 # Changelog
 
+## [v4.0.0](https://github.com/ruiquelhas/thurston/tree/v4.0.0) (2017-11-11)
+[Full Changelog](https://github.com/ruiquelhas/thurston/compare/v3.0.1...v4.0.0)
+
+**Closed issues:**
+
+- Support hapi v17 [\#20](https://github.com/ruiquelhas/thurston/issues/20)
+
+**Merged pull requests:**
+
+- Add support for hapi v17 [\#21](https://github.com/ruiquelhas/thurston/pull/21) ([ruiquelhas](https://github.com/ruiquelhas))
+
 ## [v3.0.1](https://github.com/ruiquelhas/thurston/tree/v3.0.1) (2017-06-06)
 [Full Changelog](https://github.com/ruiquelhas/thurston/compare/v3.0.0...v3.0.1)
 
