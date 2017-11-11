@@ -6,7 +6,7 @@ Route-level file type validation for [hapi](https://github.com/hapijs/hapi) pars
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
-  - [`validate(payload, options, fn)`](#validatepayload-options-fn)
+  - [`async validate(payload, options)`](#async-validatepayload-options)
     - [Hapi](#hapi)
     - [Standalone](#standalone)
 - [Supported File Types](#supported-file-types)
@@ -19,8 +19,8 @@ $ npm install thurston
 ```
 
 ## Usage
-### `validate(payload, options, fn)`
-Validates all `Stream.Readable` values in a `payload` given a `whitelist` of file types provided in the `options`. Results in a [joi](https://github.com/hapijs/joi)-like `ValidationError` if some file type is not allowed or unknown otherwise it returns the original parsed payload to account for additional custom validation.
+### `async validate(payload, options)`
+Validates all `Stream.Readable` values in a `payload` given a `whitelist` of file types provided in the `options`. Throws a [joi](https://github.com/hapijs/joi)-like `ValidationError` if some file type is not allowed or unknown otherwise it returns the original parsed payload.
 
 ### Hapi
 
@@ -28,9 +28,7 @@ Validates all `Stream.Readable` values in a `payload` given a `whitelist` of fil
 const Hapi = require('hapi');
 const Thurston = require('thurston');
 
-const server = new Hapi.Server();
-
-server.connection({
+const server = new Hapi.Server({
     routes: {
         validate: {
             options: {
@@ -43,6 +41,12 @@ server.connection({
 server.route({
     config: {
         validate: {
+            // override the default `failAction` if you want further
+            // details about the validation error
+            failAction: (request, h, err) => {
+                // throw the error as is
+                throw err;
+            },
             payload: Thurston.validate
         },
         payload: {
@@ -61,13 +65,15 @@ const Thurston = require('thurston');
 
 const options = { whitelist: ['image/png'] };
 
-Fs.createWriteStream('file.png').end(Buffer.from('89504e47', 'hex'));
+Fs.createWriteStream('file.png').end(Buffer.from('89504e470d0a1a0a', 'hex'));
 const png = Fs.createReadStream('file.png');
 
-Thurston.validate({ file: png }, options, (err, value) => {
-
-    console.log(err); // null
-    console.log(value); // { file: ReadStream { _readableState: { ..., buffer: [ <Buffer 89 50> ], ... }, ... } }
+try {
+    const payload = await Thurston.validate({ file: png }, options);
+    console.log(payload); // { file: ReadStream { _readableState: { ..., buffer: [ <Buffer 89 50> ], ... }, ... } }
+}
+catch (err) {
+    // Unreachable code.
 });
 ```
 
@@ -77,18 +83,19 @@ const Thurston = require('thurston');
 
 const options = { whitelist: ['image/png'] };
 
-Fs.createWriteStream('file.gif').end(Buffer.from('47494638', 'hex'));
+Fs.createWriteStream('file.gif').end(Buffer.from('474946383761', 'hex'));
 const gif = Fs.createReadStream('file.gif');
 
-Thurston.validate({ file: gif }, options, (err, value) => {
-
+try {
+    await Thurston.validate({ file: gif }, options);
+}
+catch (err) {
     console.log(err); // [ValidationError: child "file" fails because ["file" type is not allowed]]
-    console.log(value); // undefined
-});
+}
 ```
 
 ## Supported File Types
-The same as [file-type](https://github.com/sindresorhus/file-type#supported-file-types).
+The same as [file-type](https://github.com/sindresorhus/file-type/tree/v7.0.0#supported-file-types).
 
 [coveralls-img]: https://img.shields.io/coveralls/ruiquelhas/thurston.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/github/ruiquelhas/thurston
