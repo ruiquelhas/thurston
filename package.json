@@ -28,17 +28,16 @@
   },
   "homepage": "https://github.com/ruiquelhas/thurston#readme",
   "devDependencies": {
-    "code": "4.x.x",
-    "coveralls": "2.x.x",
-    "hapi": "16.2.x",
-    "lab": "13.x.x",
+    "code": "5.x.x",
+    "coveralls": "3.x.x",
+    "hapi": "17.x.x",
+    "lab": "15.x.x",
     "multi-part": "2.x.x"
   },
   "dependencies": {
-    "houdin": "3.x.x",
-    "items": "2.x.x"
+    "houdin": "5.x.x"
   },
   "engines": {
-    "node": ">=4.5.0"
+    "node": ">=8.9.0"
   }
 }
